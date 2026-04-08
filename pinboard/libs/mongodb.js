@@ -9,3 +9,5 @@ const connectToDB = async () => {
     throw new Error("Failed to connect to MongoDB");
   }
 };
+
+export default connectToDB
