@@ -3,12 +3,12 @@ import connectToDB from "@/libs/mongodb";
 import User from "@/models/User";
 import { NextResponse } from "next/server";
 
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 
 export async function POST(request) {
-  connectToDB();
+  await connectToDB();
 
-  const formDara = await request.formDara();
+const formData = await request.formData();
   const image = formData.get("image");
   const username = formData.get("username");
   const email = formData.get("email");

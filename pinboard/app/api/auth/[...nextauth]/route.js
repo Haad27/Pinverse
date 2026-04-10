@@ -4,7 +4,7 @@ import GithubProvider from "next-auth/providers/github";
 import CredentialsProvider from "next-auth/providers/credentials";
 import connectToDB from "@/libs/mongodb";
 import User from "@/models/User";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 
 export const authOptions = {
   providers: [
@@ -14,8 +14,8 @@ export const authOptions = {
     }),
 
     GithubProvider({
-      clientId: process.env.GITHUB_ID,
-      clientSecret: process.env.GITHUB_SECRET,
+      clientId: process.env.GITHUB_CLIENT_ID,
+      clientSecret: process.env.GITHUB_CLIENT_SECRET,
     }),
 
     CredentialsProvider({
@@ -46,7 +46,7 @@ export const authOptions = {
 
         const isPasswordMatched = await bcrypt.compare(
           credentials.password,
-          user.password
+          user.password,
         );
 
         if (!isPasswordMatched) {
@@ -70,4 +70,4 @@ export const authOptions = {
 
 const handler = NextAuth(authOptions);
 
-export{handler as GET, handler as POST};
+export { handler as GET, handler as POST };
